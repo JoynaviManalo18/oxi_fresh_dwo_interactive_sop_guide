@@ -1,0 +1,474 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap');
+body { font-family: 'Open Sans', var(--font-sans); }
+
+.header {
+  border-radius: var(--border-radius-lg);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  border: 0.5px solid rgba(0,0,0,0.12);
+}
+.header-top {
+  background: #1B3A6B;
+  padding: 1rem 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.header-bottom {
+  background: #CC2229;
+  padding: 5px 1.5rem;
+}
+.header-bottom span {
+  font-family: 'Oswald', sans-serif;
+  font-size: 10.5px; color: rgba(255,255,255,0.85);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.logo-img { width: 90px; height: auto; flex-shrink: 0; }
+.header-text h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 19px; font-weight: 600; color: #fff; letter-spacing: 0.02em;
+}
+.header-text p { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+
+.progress-bar { display: flex; gap: 5px; margin-bottom: 1rem; }
+.progress-step {
+  flex: 1; height: 5px; border-radius: 3px;
+  background: var(--color-border-tertiary); cursor: pointer; transition: background 0.2s;
+}
+.progress-step.done { background: #27AE60; }
+.progress-step.active { background: #CC2229; }
+
+.step-nav { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+.step-pill {
+  padding: 5px 11px; font-size: 11.5px; border-radius: 20px;
+  border: 0.5px solid var(--color-border-secondary);
+  background: var(--color-background-primary);
+  color: var(--color-text-secondary); cursor: pointer; transition: all 0.15s;
+}
+.step-pill.active { background: #1B3A6B; color: #fff; border-color: #1B3A6B; }
+.step-pill.done { background: #eaf3de; color: #3B6D11; border-color: #97C459; }
+
+.step-card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg); overflow: hidden; margin-bottom: 1rem;
+}
+.step-header {
+  padding: 1rem 1.25rem; display: flex; align-items: center; gap: 12px;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+}
+.step-num {
+  width: 38px; height: 38px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Oswald', sans-serif; font-size: 18px; font-weight: 600; color: #fff; flex-shrink: 0;
+}
+.step-title { font-family: 'Oswald', sans-serif; font-size: 17px; font-weight: 500; color: var(--color-text-primary); letter-spacing: 0.02em; }
+.step-subtitle { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+.step-body { padding: 1rem 1.25rem; }
+
+.checklist { list-style: none; }
+.checklist li {
+  display: flex; gap: 10px; align-items: flex-start; padding: 7px 0;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  font-size: 13px; color: var(--color-text-primary); cursor: pointer;
+}
+.checklist li:last-child { border-bottom: none; }
+.check-box {
+  width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--color-border-secondary);
+  flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+}
+.check-box.checked { background: #27AE60; border-color: #27AE60; }
+.check-box.checked::after { content: ''; width: 10px; height: 6px; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg) translateY(-1px); display: block; }
+.check-text.checked { text-decoration: line-through; color: var(--color-text-secondary); }
+
+.alert {
+  border-radius: var(--border-radius-md); padding: 10px 12px; font-size: 12px; margin-top: 10px;
+  display: flex; gap: 8px; align-items: flex-start; line-height: 1.5;
+}
+.alert-warning { background: #FFF3CD; color: #7D4E00; }
+.alert-info { background: #E6F1FB; color: #0C447C; }
+.alert-success { background: #EAF3DE; color: #3B6D11; }
+.alert-danger { background: #FCEBEB; color: #791F1F; }
+.alert i { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+.waiver-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 8px; }
+.waiver-card {
+  border-radius: var(--border-radius-md); padding: 8px 10px; font-size: 11.5px;
+  border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); line-height: 1.4;
+}
+.waiver-card strong { font-size: 12px; font-weight: 600; display: block; margin-bottom: 3px; }
+
+.tab-bar { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; }
+.tab-btn {
+  padding: 5px 10px; font-size: 12px; border-radius: var(--border-radius-md);
+  border: 0.5px solid var(--color-border-secondary);
+  background: var(--color-background-primary); color: var(--color-text-secondary); cursor: pointer; transition: all 0.15s;
+}
+.tab-btn.active { background: #1B3A6B; color: #fff; border-color: #1B3A6B; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.photo-split { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+.photo-box { border-radius: var(--border-radius-md); padding: 10px; font-size: 12px; border: 0.5px solid var(--color-border-tertiary); line-height: 1.4; }
+.photo-box .label { font-family: 'Oswald', sans-serif; font-weight: 500; font-size: 13px; margin-bottom: 4px; letter-spacing: 0.02em; }
+
+.btn-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; gap: 8px; }
+.btn {
+  padding: 8px 16px; font-size: 13px; border-radius: var(--border-radius-md);
+  border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary);
+  color: var(--color-text-primary); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.15s;
+}
+.btn:hover { background: var(--color-background-secondary); }
+.btn-primary { background: #1B3A6B; color: #fff; border-color: #1B3A6B; }
+.btn-primary:hover { background: #15305a; }
+.btn-success { background: #27AE60; color: #fff; border-color: #27AE60; }
+
+.complete-banner {
+  background: #EAF3DE; border: 0.5px solid #97C459; border-radius: var(--border-radius-lg);
+  padding: 1.5rem; text-align: center; display: none;
+}
+.complete-banner h2 { font-family: 'Oswald', sans-serif; font-size: 20px; font-weight: 600; color: #3B6D11; letter-spacing: 0.02em; }
+.complete-banner p { font-size: 13px; color: #27500A; margin-top: 6px; }
+
+.tip-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(204,34,41,0.1); color: #CC2229;
+  font-size: 10.5px; padding: 2px 8px; border-radius: 10px; margin-left: 8px; font-weight: 600;
+}
+.status-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.status-badge { padding: 4px 10px; border-radius: 12px; font-size: 11.5px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+.s-open { background: #F1EFE8; color: #5F5E5A; }
+.s-progress { background: #E6F1FB; color: #0C447C; }
+.s-paid { background: #EAF3DE; color: #3B6D11; }
+.s-complete { background: #1B3A6B; color: #fff; }
+.section-label {
+  font-family: 'Oswald', sans-serif; font-size: 12px; font-weight: 500; color: var(--color-text-secondary);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; margin-top: 12px;
+}
+</style>
+
+<h2 class="sr-only">Oxi Fresh Digital Work Order — interactive technician guide</h2>
+
+<div class="header">
+  <div class="header-top">
+    <img class="logo-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQW..." alt="Oxi Fresh Carpet Cleaning logo" style="width:90px;height:auto" />
+    <div class="header-text">
+      <h1>Digital Work Order</h1>
+      <p>Technician step-by-step guide · Northeast Florida</p>
+    </div>
+  </div>
+  <div class="header-bottom">
+    <span><i class="ti ti-map-pin" aria-hidden="true" style="font-size:11px;vertical-align:-1px;margin-right:4px"></i>Oxi Fresh Carpet Cleaning · Northeast Florida · Effective June 12, 2026</span>
+  </div>
+</div>
+
+<div class="progress-bar" id="progressBar">
+  <div class="progress-step active" onclick="goTo(0)"></div>
+  <div class="progress-step" onclick="goTo(1)"></div>
+  <div class="progress-step" onclick="goTo(2)"></div>
+  <div class="progress-step" onclick="goTo(3)"></div>
+  <div class="progress-step" onclick="goTo(4)"></div>
+  <div class="progress-step" onclick="goTo(5)"></div>
+</div>
+
+<div class="step-nav">
+  <div class="step-pill active" onclick="goTo(0)">1. Begin Job</div>
+  <div class="step-pill" onclick="goTo(1)">2. Walkthrough</div>
+  <div class="step-pill" onclick="goTo(2)">3. Recommend</div>
+  <div class="step-pill" onclick="goTo(3)">4. Waivers</div>
+  <div class="step-pill" onclick="goTo(4)">5. Final Review</div>
+  <div class="step-pill" onclick="goTo(5)">6. Payment</div>
+</div>
+
+<div id="steps">
+
+<div class="step-card" id="step0">
+  <div class="step-header">
+    <div class="step-num" style="background:#1B3A6B">1</div>
+    <div>
+      <div class="step-title">Begin Job <span class="tip-tag"><i class="ti ti-clock" aria-hidden="true"></i> Clock in</span></div>
+      <div class="step-subtitle">Job Information screen — tap Begin Job when you arrive on-site</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="section-label">Before you start</div>
+    <ul class="checklist">
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Read Appointment Notes carefully — pets, special instructions, precalls</span></li>
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Verify customer name, address, and invoice number</span></li>
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Tap the blue Begin Job button to start the job timer</span></li>
+    </ul>
+    <div class="alert alert-warning"><i class="ti ti-alert-triangle" aria-hidden="true"></i><div>Tap Begin Job FIRST — always. This records your arrival time and starts your Sales Per Hour (SPH) calculation.</div></div>
+    <div class="section-label">Job status flow</div>
+    <div class="status-row">
+      <div class="status-badge s-open"><i class="ti ti-circle" aria-hidden="true"></i> Open</div>
+      <div style="color:var(--color-text-secondary);font-size:12px;align-self:center">→</div>
+      <div class="status-badge s-progress"><i class="ti ti-player-play" aria-hidden="true"></i> In Progress</div>
+      <div style="color:var(--color-text-secondary);font-size:12px;align-self:center">→</div>
+      <div class="status-badge s-paid"><i class="ti ti-credit-card" aria-hidden="true"></i> Paid</div>
+      <div style="color:var(--color-text-secondary);font-size:12px;align-self:center">→</div>
+      <div class="status-badge s-complete"><i class="ti ti-check" aria-hidden="true"></i> Completed</div>
+    </div>
+    <div class="alert alert-info" style="margin-top:10px"><i class="ti ti-info-circle" aria-hidden="true"></i><div>After tapping Finish Job, the screen may briefly show Begin Job again — that is normal. Check the Appointments list to confirm the job shows Completed.</div></div>
+  </div>
+</div>
+
+<div class="step-card" id="step1" style="display:none">
+  <div class="step-header">
+    <div class="step-num" style="background:#1B3A6B">2</div>
+    <div>
+      <div class="step-title">Walkthrough &amp; Confirm Quote</div>
+      <div class="step-subtitle">3 tabs: Services · General Notes · Waivers</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="tab-bar">
+      <div class="tab-btn active" onclick="switchTab(this,'wt0')">Services</div>
+      <div class="tab-btn" onclick="switchTab(this,'wt1')">General Notes</div>
+      <div class="tab-btn" onclick="switchTab(this,'wt2')">Waivers</div>
+    </div>
+    <div class="tab-content active" id="wt0">
+      <div class="alert alert-info"><i class="ti ti-info-circle" aria-hidden="true"></i><div>This tab shows the original booking quote. Assess actual on-site conditions and adjust.</div></div>
+      <ul class="checklist">
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Review all booked services with the customer</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">If actual items are LESS than booked — use the ( - ) button to reduce quantity</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">If actual items are SAME as booked — no changes needed</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">If ADDITIONAL rooms or items found on-site — add them in Step 3</span></li>
+      </ul>
+      <div class="alert alert-warning" style="margin-top:8px"><i class="ti ti-alert-triangle" aria-hidden="true"></i><div>Do NOT add new upsells or services here. Step 2 = adjust quantities only. Step 3 = add new services.</div></div>
+    </div>
+    <div class="tab-content" id="wt1">
+      <ul class="checklist">
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Add overall job notes in the top box</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Add per-service notes for stains, damage, or special requests</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">For cancellations — document condition, reason, and recommendation here</span></li>
+      </ul>
+      <div class="alert alert-success"><i class="ti ti-bulb" aria-hidden="true"></i><div>Good notes protect you and Oxi Fresh. Document any pre-existing issues so there is no dispute later.</div></div>
+    </div>
+    <div class="tab-content" id="wt2">
+      <div class="alert alert-danger"><i class="ti ti-alert-triangle" aria-hidden="true"></i><div>No digital signature exists. Customer must type their name or initials in the Notes field of each waiver to confirm approval.</div></div>
+      <div class="section-label" style="margin-top:10px">6 waiver types — select the right one</div>
+      <div class="waiver-grid">
+        <div class="waiver-card"><strong style="color:#27AE60">Invoice Updated</strong>Every time invoice changes or upsell accepted</div>
+        <div class="waiver-card"><strong style="color:#F39C12">Declined Recommended Service(s)</strong>Customer says NO to any recommended service</div>
+        <div class="waiver-card"><strong style="color:#CC2229">Damage / Pre-Existing Conditions</strong>Damage or stains found before cleaning</div>
+        <div class="waiver-card"><strong style="color:#1B3A6B">Unknown / Unapproved Material</strong>Material unknown or not standard</div>
+        <div class="waiver-card"><strong style="color:#F39C12">Replacement Recommended</strong>Tech recommends replacement, customer proceeds</div>
+        <div class="waiver-card"><strong style="color:#1B3A6B">Custom Waiver</strong>Special situations not covered above</div>
+      </div>
+      <div class="section-label">Before photos</div>
+      <ul class="checklist">
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Tap Upload Photos to take BEFORE photos of each area</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Photos saved in CRM as "Walkthrough Photos"</span></li>
+      </ul>
+    </div>
+    <div style="margin-top:12px">
+      <ul class="checklist">
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Tap Finish Walkthrough &amp; Confirm Quote when all 3 tabs are complete</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="step-card" id="step2" style="display:none">
+  <div class="step-header">
+    <div class="step-num" style="background:#27AE60">3</div>
+    <div>
+      <div class="step-title">Recommend Services <span class="tip-tag"><i class="ti ti-plus" aria-hidden="true"></i> Upsells here</span></div>
+      <div class="step-subtitle">Add additional rooms, items &amp; advance treatments not in original booking</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="alert alert-success"><i class="ti ti-bulb" aria-hidden="true"></i><div>This is the correct tab for ALL upsells, additional rooms, and advance treatments found on-site.</div></div>
+    <ul class="checklist">
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Review Current Services summary with the customer</span></li>
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Recommend advance treatments — Pet Treatment, Odor Destroyer, Sanitizer, Protectant, Spotting Kit</span></li>
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Customer ACCEPTS — tap + Add Another Service, then go to Step 2 → Waivers Tab → add Invoice Updated waiver</span></li>
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Customer DECLINES — go to Step 2 → Waivers Tab → add Declined Recommended Service(s) waiver</span></li>
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Apply coupon if applicable — tap + Add Coupon</span></li>
+    </ul>
+    <div class="alert alert-info" style="margin-top:8px"><i class="ti ti-info-circle" aria-hidden="true"></i><div>Mention protectant or sanitizer for customers with kids or pets — a quick recommendation increases job value!</div></div>
+  </div>
+</div>
+
+<div class="step-card" id="step3" style="display:none">
+  <div class="step-header">
+    <div class="step-num" style="background:#F39C12">4</div>
+    <div>
+      <div class="step-title">Waivers — review screen</div>
+      <div class="step-subtitle">Confirm all waivers added in Step 2 are complete</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="alert alert-info"><i class="ti ti-info-circle" aria-hidden="true"></i><div>Step 4 is a review only screen. Waivers are added in Step 2 → Waivers Tab using the Select a Waiver dropdown. If any are missing, go back to Step 2.</div></div>
+    <ul class="checklist">
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Confirm all required waivers are showing as completed</span></li>
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Confirm customer name or initials are in the Notes field of each waiver</span></li>
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">If any waiver is missing — go BACK to Step 2 → Waivers Tab to add it</span></li>
+    </ul>
+    <div class="alert alert-danger" style="margin-top:8px"><i class="ti ti-alert-triangle" aria-hidden="true"></i><div>Bypass should NEVER be used as a shortcut. Always call Joy or Sean before bypassing any waiver.</div></div>
+  </div>
+</div>
+
+<div class="step-card" id="step4" style="display:none">
+  <div class="step-header">
+    <div class="step-num" style="background:#7B1FA2">5</div>
+    <div>
+      <div class="step-title">Final Review</div>
+      <div class="step-subtitle">Last chance to verify everything before taking payment</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <ul class="checklist">
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Review all services and quantities with the customer</span></li>
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Verify all discounts are showing correctly</span></li>
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Add service notes in the Final Notes box (e.g. "CASH PAYMENT" if applicable)</span></li>
+      <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Tap Upload Photos to take AFTER photos of each cleaned area</span></li>
+    </ul>
+    <div class="section-label">Photo locations</div>
+    <div class="photo-split">
+      <div class="photo-box" style="background:#E6F1FB;border-color:#B5D4F4">
+        <div class="label" style="color:#0C447C">Before photos</div>
+        <div style="font-size:11.5px;color:#185FA5">Step 2 → Waivers Tab<br>Saved as "Walkthrough Photos"</div>
+      </div>
+      <div class="photo-box" style="background:#EAF3DE;border-color:#C0DD97">
+        <div class="label" style="color:#3B6D11">After photos</div>
+        <div style="font-size:11.5px;color:#27500A">Step 5 → Final Review<br>Saved as "Final Review Photos"</div>
+      </div>
+    </div>
+    <div class="alert alert-success" style="margin-top:8px"><i class="ti ti-camera" aria-hidden="true"></i><div>Both photo sets are visible side by side in the CRM — a clear before &amp; after comparison for every job.</div></div>
+  </div>
+</div>
+
+<div class="step-card" id="step5" style="display:none">
+  <div class="step-header">
+    <div class="step-num" style="background:#CC2229">6</div>
+    <div>
+      <div class="step-title">Take Payment &amp; Finish Job</div>
+      <div class="step-subtitle">Select the correct payment process then tap Finish Job</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="tab-bar">
+      <div class="tab-btn active" onclick="switchTab(this,'pt0')">Card</div>
+      <div class="tab-btn" onclick="switchTab(this,'pt1')">Cash</div>
+      <div class="tab-btn" onclick="switchTab(this,'pt2')">Split</div>
+      <div class="tab-btn" onclick="switchTab(this,'pt3')">Property Mgmt</div>
+    </div>
+    <div class="tab-content active" id="pt0">
+      <ul class="checklist">
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Process card payment in the Take Payment step</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Confirm payment accepted</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Tap Finish Job</span></li>
+      </ul>
+    </div>
+    <div class="tab-content" id="pt1">
+      <ul class="checklist">
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">In Final Review Notes — write "CASH PAYMENT"</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Leave payment OPEN in Take Payment — do not process</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Tap Finish Job</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Forward cash to Sean</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Office closes payment in CRM once received</span></li>
+      </ul>
+    </div>
+    <div class="tab-content" id="pt2">
+      <ul class="checklist">
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">In Final Review Notes — write "2 PAYMENTS: Card-$___ | Cash-$___"</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Process CARD amount only in Take Payment</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Leave CASH balance OPEN</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Tap Finish Job — then forward cash to Sean</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Office closes cash payment in CRM once received</span></li>
+      </ul>
+    </div>
+    <div class="tab-content" id="pt3">
+      <ul class="checklist">
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Leave payment as UNPAID — do not process</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Tap Finish Job</span></li>
+        <li onclick="toggle(this)"><div class="check-box"></div><span class="check-text">Office handles invoicing and payment collection</span></li>
+      </ul>
+    </div>
+    <div class="alert alert-danger" style="margin-top:10px"><i class="ti ti-alert-triangle" aria-hidden="true"></i><div>Always tap Finish Job before leaving — even for cancelled jobs! Missing Finish Job directly affects your Average Sales Per Hour (SPH).</div></div>
+  </div>
+</div>
+</div>
+
+<div class="complete-banner" id="completeBanner">
+  <i class="ti ti-circle-check" style="font-size:36px;color:#27AE60" aria-hidden="true"></i>
+  <h2>Job complete!</h2>
+  <p>All 6 steps checked off. Great work — you are all set before leaving the property.</p>
+</div>
+
+<div class="btn-nav">
+  <button class="btn" id="btnPrev" onclick="navigate(-1)" style="display:none"><i class="ti ti-arrow-left" aria-hidden="true"></i> Previous</button>
+  <div></div>
+  <button class="btn btn-primary" id="btnNext" onclick="navigate(1)">Next step <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+</div>
+
+<script>
+let current = 0;
+const total = 6;
+
+function toggle(li) {
+  const box = li.querySelector('.check-box');
+  const txt = li.querySelector('.check-text');
+  box.classList.toggle('checked');
+  txt.classList.toggle('checked', box.classList.contains('checked'));
+}
+
+function goTo(idx) {
+  document.getElementById('step' + current).style.display = 'none';
+  current = idx;
+  document.getElementById('step' + current).style.display = 'block';
+  updateNav(); updateProgress();
+  document.getElementById('completeBanner').style.display = 'none';
+}
+
+function navigate(dir) {
+  const next = current + dir;
+  if (next < 0 || next >= total) return;
+  goTo(next);
+}
+
+function updateNav() {
+  document.getElementById('btnPrev').style.display = current > 0 ? 'flex' : 'none';
+  const btn = document.getElementById('btnNext');
+  if (current === total - 1) {
+    btn.innerHTML = '<i class="ti ti-check" aria-hidden="true"></i> All done';
+    btn.className = 'btn btn-success';
+    btn.onclick = () => { document.getElementById('completeBanner').style.display = 'block'; };
+  } else {
+    btn.innerHTML = 'Next step <i class="ti ti-arrow-right" aria-hidden="true"></i>';
+    btn.className = 'btn btn-primary';
+    btn.onclick = () => navigate(1);
+  }
+  document.querySelectorAll('.step-pill').forEach((p, i) => {
+    p.className = 'step-pill' + (i === current ? ' active' : '');
+  });
+}
+
+function updateProgress() {
+  document.querySelectorAll('.progress-step').forEach((s, i) => {
+    s.className = 'progress-step' + (i < current ? ' done' : i === current ? ' active' : '');
+  });
+}
+
+function switchTab(btn, targetId) {
+  const bar = btn.parentElement;
+  bar.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  let el = bar.nextElementSibling;
+  while (el && el.classList && el.classList.contains('tab-content')) {
+    el.classList.remove('active');
+    el = el.nextElementSibling;
+  }
+  document.getElementById(targetId).classList.add('active');
+}
+
+(function fixLogo() {
+  const img = document.querySelector('.logo-img');
+  if (img) {
+    img.src = '/mnt/user-data/uploads/1781570704904_image.png';
+    img.onerror = function() { this.style.display='none'; };
+  }
+})();
+</script>
